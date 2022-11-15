@@ -1,0 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CheckPointController : MonoBehaviour
+{
+    public int lap = 0;
+    public int checkPoint = -1;
+    int pointCount;
+    public int nextPoint;
+
+    public GameObject lastPoint;
+
+
+    void Start()
+    {
+        GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
+        pointCount = checkpoints.Length;
+
+        for (int i = 0; i < pointCount; i++)
+        {
+            if (checkpoints[i].name == "0")
+            {
+                lastPoint = checkpoints[i];
+                break;
+            }
+        }
+
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Checkpoint")
+        {
+            int thisPoint = int.Parse(other.gameObject.name);
+            if (thisPoint == nextPoint)
+            {
+                checkPoint = thisPoint;
+                lastPoint = other.gameObject;
+                if (checkPoint == 0)
+                {
+                    lap++;
+                    Debug.Log("Lap: " + lap);
+                }
+                nextPoint++;
+                nextPoint = nextPoint % pointCount;
+            }
+        }
+    }
+}
