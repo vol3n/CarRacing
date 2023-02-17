@@ -15,6 +15,8 @@ public class DrivingScript : MonoBehaviour
     public GameObject backLights;
     public GameObject reversingLight;
 
+    public GameObject CameraTarget;
+
     public void Drive(float accel, float brake, float steer)
     {
         accel = Mathf.Clamp(accel, -1, 1);
@@ -66,5 +68,10 @@ public class DrivingScript : MonoBehaviour
             wheel.wheel.transform.rotation = quat;
 
         }
+    }
+
+    public void XD()
+    {
+
     }
     }
